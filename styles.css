@@ -1,0 +1,15 @@
+.Heading{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding:1rem;
+}
+.searchSection{
+    display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.searchInput{
+    display: flex;
+    gap: 10px;
+}
