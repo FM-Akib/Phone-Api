@@ -32,7 +32,7 @@ const displayPhones = (phones, dataLimit) =>{
 
     // display all phones
     phones.forEach(phone =>{
-    // console.log(phone.image);
+    // console.log(phone.slug);
 
         const phoneDiv  = document.createElement('div');
         phoneDiv.classList.add('col');
@@ -42,7 +42,7 @@ const displayPhones = (phones, dataLimit) =>{
             <div class="card-body">
                 <h5 class="card-title">${phone.phone_name}</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <button onclick="loadPhoneDetails('${phone.slug}')" href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#phoneDetailModal">Show Details</button>
+                <button onclick="loadPhoneDetails('${phone.slug}')"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#phoneDetailModal">Show Details</button>
                 
             </div>
         </div>
@@ -94,21 +94,26 @@ document.getElementById('btn-show-all').addEventListener('click', function(){
 })
 
 const loadPhoneDetails = async id =>{
-    const url =`www.openapi.programming-hero.com/api/phone/${id}`;
+    // const url =`www.openapi.programming-hero.com/api/phone/${id}`;
+     const url =`https://openapi.programming-hero.com/api/phone/${id}`;
     const res = await fetch(url);
     const data = await res.json();
     displayPhoneDetails(data.data);
+
+
 }
 
 const displayPhoneDetails = phone =>{
     console.log(phone);
-    const modalTitle = document.getElementById('phoneDetailModalLabel');
-    modalTitle.innerText = phone.name;
+    console.log(phone.mainFeatures.storage);
+
+    document.getElementById('phoneDetailModalLabel').innerText = phone.name;
+
     const phoneDetails = document.getElementById('phone-details');
     console.log(phone.mainFeatures.sensors[0]);
     phoneDetails.innerHTML = `
         <p>Release Date: ${phone.releaseDate}</p>
-        <p>Storage: ${phone.mainFeatures}</p>
+        <p>Storage: ${phone.mainFeatures.storage}</p>
         <p>Others: ${phone.others ? phone.others.Bluetooth : 'No Bluetooth Information'}</p>
         <p>Sensor: ${phone.mainFeatures.sensors ? phone.mainFeatures.sensors[0] : 'no sensor'}</p>
     `
